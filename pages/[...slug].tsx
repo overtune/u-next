@@ -2,6 +2,7 @@ import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import { fetchCmsData, getAllPages } from '@lib/fetchFromCms';
 import PreviewBar from '@components/PreviewBar';
+import Layout from '@components/Layout';
 import Article from '@components/Article';
 
 interface Props {
@@ -13,7 +14,7 @@ const Page: React.FC<Props> = ({ page, preview }) => {
 	return (
 		<>
 			{preview && <PreviewBar />}
-			{page && <Article page={page} preview={preview} />}
+			<Layout>{page && <Article page={page} preview={preview} />}</Layout>
 		</>
 	);
 };
@@ -41,9 +42,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 	const allPages = await getAllPages();
 	const slugs = [];
 	const getAllItemsUrls = (item: any) => {
-		slugs.push({
-			params: { slug: item.url.replace(/^\/|\/$/g, '').split('/') },
-		});
+		if (item.url.substring(0, 4) !== 'http') {
+			slugs.push({
+				params: { slug: item.url.replace(/^\/|\/$/g, '').split('/') },
+			});
+		}
 		if (item.items) {
 			return item.items.map(getAllItemsUrls);
 		}

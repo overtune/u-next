@@ -7,7 +7,7 @@ interface Props {
 }
 
 const Article: React.FC<Props> = ({ page, preview }) => (
-	<div className="container px-4 pt-12 mx-auto prose lg:prose-xl">
+	<article className="prose lg:prose-xl">
 		{preview && (
 			<h1
 				data-epi-property-name="heading"
@@ -31,7 +31,7 @@ const Article: React.FC<Props> = ({ page, preview }) => (
 		)}
 
 		{page?.navigation?.items && <Menu menu={page?.navigation?.items} />}
-	</div>
+	</article>
 );
 
 export default Article;

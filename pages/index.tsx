@@ -2,6 +2,7 @@ import React from 'react';
 import { GetStaticProps } from 'next';
 import { fetchCmsData } from '@lib/fetchFromCms';
 import PreviewBar from '@components/PreviewBar';
+import Layout from '@components/Layout';
 import Article from '@components/Article';
 
 interface Props {
@@ -13,7 +14,7 @@ const Startpage: React.FC<Props> = ({ page, preview }) => {
 	return (
 		<>
 			{preview && <PreviewBar />}
-			{page && <Article page={page} preview={preview} />}
+			<Layout>{page && <Article page={page} preview={preview} />}</Layout>
 		</>
 	);
 };
